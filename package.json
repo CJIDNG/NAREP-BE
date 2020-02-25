@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "DEBUG=dev nodemon --exec babel-node src/server.js"
+    "server": "DEBUG=dev nodemon --exec babel-node src/server.js",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo:all",
+    "seedall": "sequelize db:seed:all",
+    "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall",
+    "dev:migrate": "cross-env NODE_ENV=test && sequelize db:migrate"
   },
   "repository": {
     "type": "git",
@@ -43,6 +48,7 @@
     "pg": "^7.18.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "uuid": "^7.0.0"
   }
 }

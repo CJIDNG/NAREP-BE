@@ -2,13 +2,17 @@ const uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
-    'Users',
+    'Roles',
     [
       {
         id: uuid(),
-        username: 'Jand Doe',
-        email: 'janedoe.com',
-        password: '$2a$10$JUCGXOZMZUDUHXqRpbdoVuQ.0RuEEV26NKwnZUQJ2K1tE4FwW.nE.',
+        role: 'user',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: uuid(),
+        role: 'admin',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16,5 +20,5 @@ module.exports = {
     {},
   ),
 
-  down: (queryInterface) => queryInterface.bulkDelete('Users', null, {}),
+  down: (queryInterface) => queryInterface.bulkDelete('Roles', null, {}),
 };
