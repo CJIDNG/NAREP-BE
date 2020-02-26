@@ -8,7 +8,7 @@
   ],
   "addons": [],
   "env": {
-    "BASE_URL": {
+    "NPM_CONFIG_PRODUCTION": {
       "required": true
     }
   },
@@ -17,6 +17,9 @@
       "url": "heroku/nodejs"
     }
   ],
+  "scripts": {
+    "postdeploy": "npx sequelize-cli db:seed:all"
+  },
   "stack": "heroku-18",
   "formation": {
     "web": {
