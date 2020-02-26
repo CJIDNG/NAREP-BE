@@ -38,7 +38,7 @@
 ## Deployment
 
 This app will be deployed on heroku, To access this app go to these link:
-    - [Staging](https://boondocks-bn-backend-staging.herokuapp.com/)
+    - [Staging](https://narep-be-staging.herokuapp.com/)
 
 ## Docker
 
@@ -66,4 +66,4 @@ This app will be deployed on heroku, To access this app go to these link:
 
 4. Run `npm migrate` followed by ` npx sequelize-cli db:seed:all`
 
-5. Run `npm run watch` and test endpoint using postman using route `http://localhost:3000/<endpoind route>`
+5. Run `npm run server` and test endpoint using postman using route `http://localhost:3000/<endpoint route>`
