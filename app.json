@@ -1,0 +1,26 @@
+{
+  "name": "NAREP Backend",
+  "description": "Making data accessible",
+  "repository": "https://github.com/CJIDNG/NAREP-BE/",
+  "keywords": [
+    "data",
+    "ptcij"
+  ],
+  "addons": [],
+  "env": {
+    "BASE_URL": {
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-18",
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
+}
