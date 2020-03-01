@@ -13,3 +13,4 @@ export const test = {
 export const production = {
   use_env_variable: 'DATABASE_URL',
 };
+module.exports = config;
