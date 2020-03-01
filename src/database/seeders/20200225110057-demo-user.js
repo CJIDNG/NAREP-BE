@@ -9,6 +9,7 @@ module.exports = {
         username: 'Jand Doe',
         email: 'janedoe.com',
         password: '$2a$10$JUCGXOZMZUDUHXqRpbdoVuQ.0RuEEV26NKwnZUQJ2K1tE4FwW.nE.',
+        role: 'user',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
