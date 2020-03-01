@@ -1,5 +1,5 @@
 import jwt, { verify } from 'jsonwebtoken';
-import { hashSync, compareSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcryptjs';
 import { config } from 'dotenv';
 
 config();

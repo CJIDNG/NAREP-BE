@@ -31,7 +31,7 @@ export default class AuthController {
       } = req.body;
       const foundUser = await User.findOne({ where: { email } });
       if (foundUser) {
-        return errorResponse(res, 409, { message: 'This User already exist' });
+        return errorResponse(res, 409, { message: 'This user already exist' });
       }
       if (password !== confirmPassword) {
         return errorResponse(res, 400, { message: 'Passwords do not match' });
