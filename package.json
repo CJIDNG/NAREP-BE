@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "NODE_ENV=test npm run migrate:undo && cross-env NODE_ENV=test npm run migrate && cross-env NODE_ENV=test npm run seedall",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register ./src/tests/*.spec.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register ./src/tests/*",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "node ./dist/server.js",
     "build": "npm run migrate && rm -rf ./dist && babel -d ./dist ./src",

@@ -1,4 +1,7 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
+import AuthHelper from '../../helpers/auth';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
@@ -25,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
+  User.beforeCreate(async (newUser) => {
+    newUser.password = AuthHelper.hashPassword(newUser.password);
+  });
   User.associate = (models) => { };
   return User;
 };
