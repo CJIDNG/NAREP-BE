@@ -1,26 +1,20 @@
-import fs from 'fs';
-import path from 'path';
+/* eslint-disable import/no-dynamic-require */
+
+import { readdirSync } from 'fs';
+import { basename as _basename, join } from 'path';
 import Sequelize from 'sequelize';
-import { development, production, test } from '../config/config';
 
-const environment = {
-  development,
-  production,
-  test,
-};
-
-const basename = path.basename(__filename);
+const basename = _basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = environment[env];
+const config = require(`${__dirname}/../config/config.js`)[env];
 const db = {};
 
-const sequelize = new Sequelize(config.url, config);
+const sequelize = new Sequelize(process.env[config.use_env_variable], config);
 
-fs
-  .readdirSync(__dirname)
+readdirSync(__dirname)
   .filter((file) => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
   .forEach((file) => {
-    const model = sequelize.import(path.join(__dirname, file));
+    const model = sequelize.import(join(__dirname, file));
     db[model.name] = model;
   });
 

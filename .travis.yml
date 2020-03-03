@@ -18,6 +18,7 @@ env:
 
 before_script:
   - psql -c "CREATE DATABASE narep_test;" -U postgres
-  - psql -c "CREATE USER narep WITH PASSWORD 'password';" -U postgres
 script:
   - npm test
+after_success:
+  - 'npm run coveralls'

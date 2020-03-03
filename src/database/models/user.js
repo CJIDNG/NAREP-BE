@@ -1,37 +1,30 @@
-/* eslint-disable no-param-reassign */
-import AuthHelper from '../../helpers/auth';
-
-const { hashPassword } = AuthHelper;
-
+/* eslint-disable no-unused-vars */
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+  const User = sequelize.define(
+    'User',
+    {
+      email: {
+        type: DataTypes.STRING,
+        required: true,
+        unique: true,
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      username: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      role: {
+        type: DataTypes.ENUM('admin', 'user'),
+        values: ['admin', 'user'],
+        defaultValue: 'user',
+        allowNull: false,
+      },
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    username: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    password: DataTypes.STRING,
-    role: {
-      allowNull: false,
-      type: DataTypes.ENUM,
-      values: ['user', 'admin'],
-      defaultValue: 'user',
-    },
-  }, {});
-  User.beforeCreate(async (newUser) => {
-    newUser.password = hashPassword(newUser.password);
-  });
-  User.associate = () => {
-    // associations can be defined here
-  };
+    {},
+  );
+  User.associate = (models) => { };
   return User;
 };
