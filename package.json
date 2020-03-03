@@ -5,16 +5,18 @@
   "main": "index.js",
   "scripts": {
     "pretest": "NODE_ENV=test npm run migrate:undo && cross-env NODE_ENV=test npm run migrate && cross-env NODE_ENV=test npm run seedall",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register ./src/tests/*.spec.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register ./src/tests/*",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "node ./dist/server.js",
-    "build": "npm run migrate && rm -rf ./dist && babel -d ./dist ./src",
+    "build": "rm -rf ./dist && babel -d ./dist ./src",
     "server": "DEBUG=dev nodemon --exec babel-node src/server.js",
     "migrate": "cross-env NODE_ENV=test && sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo:all",
     "seedall": "sequelize db:seed:all",
     "seedall:undo": "sequelize db:seed:undo",
-    "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall"
+    "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall",
+    "migration": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "heroku-postbuild": "npm run build && npm run migration"
   },
   "repository": {
     "type": "git",
@@ -68,9 +70,6 @@
     "sequelize": "^5.21.5",
     "sequelize-cli": "^5.5.1",
     "uuid": "^7.0.0"
-  },
-  "engines": {
-    "node": "13.x"
   },
   "nyc": {
     "exclude": [

@@ -3,7 +3,7 @@ import ServerResponse from '../helpers/serverResponse';
 import model from '../database/models';
 
 const { User } = model;
-const { createToken } = AuthHelper;
+const { createToken, comparePassword } = AuthHelper;
 const { errorResponse, successResponse } = ServerResponse;
 /**
  *
@@ -53,6 +53,44 @@ export default class AuthController {
         role,
       });
       return successResponse(res, 201, 'user', { message: 'Account has been created successfully!', token });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  /**
+   *
+   * @static
+   *
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @param {function} next
+   *
+   * @returns {object} returns user data
+   *
+   * @memberof AuthController
+   */
+  static async signIn(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const foundUser = await User.findOne({ where: { email } });
+      if (!foundUser) {
+        return errorResponse(res, 404, { message: 'This user does not exist' });
+      }
+      if (!comparePassword(password, foundUser.password)) {
+        return errorResponse(res, 400, { message: 'Invalid credentials' });
+      }
+      const {
+        id,
+        email: userEmail,
+        role,
+      } = foundUser;
+      const token = createToken({
+        id,
+        userEmail,
+        role,
+      });
+      return successResponse(res, 200, 'user', { message: 'User successfully logged in', token });
     } catch (error) {
       return next(error);
     }
