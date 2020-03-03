@@ -14,7 +14,8 @@
     "migrate:undo": "sequelize db:migrate:undo:all",
     "seedall": "sequelize db:seed:all",
     "seedall:undo": "sequelize db:seed:undo",
-    "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall"
+    "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall",
+    "heroku-postbuild": "npm run migrate"
   },
   "repository": {
     "type": "git",
@@ -68,9 +69,6 @@
     "sequelize": "^5.21.5",
     "sequelize-cli": "^5.5.1",
     "uuid": "^7.0.0"
-  },
-  "engines": {
-    "node": "13.x"
   },
   "nyc": {
     "exclude": [
