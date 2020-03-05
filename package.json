@@ -16,7 +16,7 @@
     "seedall:undo": "sequelize db:seed:undo",
     "reset:db": "npm run migrate:undo && npm run migrate && npm run seedall",
     "migration": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "heroku-postbuild": "npm run build && npm run migration"
+    "heroku-postbuild": "npm run migration && npm run build"
   },
   "repository": {
     "type": "git",
