@@ -65,28 +65,4 @@ export default class ServerResponse {
       },
     });
   }
-
-  /**
-   *Server Response for errors in development
-   *
-   * @static
-   *
-   * @param {object} err
-   * @param {object} req
-   * @param {object} res
-   * @param {function} next
-   *
-   * @returns {object} errors
-   *
-   * @memberof ServerResponse
-   */
-  static developmentServerErrorResponse(err, req, res, next) {
-    debug(err.stack);
-    return res.status(err.status || 500).json({
-      errors: {
-        message: err.message,
-        error: err,
-      },
-    });
-  }
 }
