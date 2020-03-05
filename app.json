@@ -6,7 +6,9 @@
     "data",
     "ptcij"
   ],
-  "addons": [],
+  "addons": [
+    "heroku-postgresql"
+  ],
   "env": {
     "NPM_CONFIG_PRODUCTION": {
       "required": true
