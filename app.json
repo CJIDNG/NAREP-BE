@@ -6,7 +6,9 @@
     "data",
     "ptcij"
   ],
-  "addons": [],
+  "addons": [
+    "heroku-postgresql"
+  ],
   "env": {
     "NPM_CONFIG_PRODUCTION": {
       "required": true
@@ -20,9 +22,6 @@
       "url": "heroku/nodejs"
     }
   ],
-  "scripts": {
-    "postdeploy": "npx sequelize-cli db:seed:all"
-  },
   "stack": "heroku-18",
   "formation": {
     "web": {
