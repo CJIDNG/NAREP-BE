@@ -1,13 +1,14 @@
 import express from 'express';
 import Debug from 'debug';
 import cors from 'cors';
+import swaggerUI from 'swagger-ui-express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import docs from './docs';
 import router from './routes';
 import ServerResponse from './helpers/serverResponse';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const { developmentServerErrorResponse, serverErrorResponse } = ServerResponse;
+const { serverErrorResponse } = ServerResponse;
 const debug = Debug('dev');
 const app = express();
 
@@ -17,10 +18,7 @@ app.use(router);
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
-
-if (!isProduction) {
-  app.use(developmentServerErrorResponse);
-}
+app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(docs));
 app.use(serverErrorResponse);
 
 const server = app.listen(process.env.PORT || 3000, () => {

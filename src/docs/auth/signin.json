@@ -1,0 +1,111 @@
+{
+  "post": {
+    "tags": [
+      "Auth"
+    ],
+    "summary": "Sign in user",
+    "description": "Login Existing User",
+    "parameters": [
+      {
+        "name": "Login Existing User",
+        "in": "body",
+        "description": "request payload",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": "test@swagger.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "pa55w0rd"
+            }
+          }
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Login successful",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 200
+            },
+            "method": {
+              "type": "string",
+              "example": "POST"
+            },
+            "message": {
+              "type": "string",
+              "example": "You have successfully logged in"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjA0ZWRiMDZiZDc2MTQwMzgyOWNkMzkiLCJuYW1lIjoiQW1vcyBUb2JpIiwiZW1haWwiOiJ0b2JpQGdva2FkYS5uZyIsImlhdCI6MTUyNzA0OTY0OSwiZXhwIjoxNTI3MTM2MDQ5fQ.-mrtcyVbcCmfyP7HovesvPLT4CFD3kCLzmY24BbKPcU"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Email is required",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 400
+            },
+            "method": {
+              "type": "string",
+              "example": "POST"
+            },
+            "message": {
+              "type": "string",
+              "example": "Please input a valid email address"
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "User does not exist",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 404
+            },
+            "method": {
+              "type": "string",
+              "example": "POST"
+            },
+            "message": {
+              "type": "string",
+              "example": "User does not exist"
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        }
+      }
+    }
+  }
+}
