@@ -22,9 +22,6 @@
       "url": "heroku/nodejs"
     }
   ],
-  "scripts": {
-    "postdeploy": "npx sequelize-cli db:seed:all"
-  },
   "stack": "heroku-18",
   "formation": {
     "web": {
