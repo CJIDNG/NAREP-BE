@@ -6,6 +6,11 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
       email: {
         type: DataTypes.STRING,
         required: true,
@@ -31,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate(async (newUser) => {
     newUser.password = AuthHelper.hashPassword(newUser.password);
   });
-  User.associate = (models) => { };
+  User.associate = (models) => {
+    User.hasMany(models.File, {
+      foreignKey: 'userId',
+      target: 'id',
+      onDelete: 'CASCADE',
+    });
+  };
   return User;
 };

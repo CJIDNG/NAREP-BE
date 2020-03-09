@@ -1,0 +1,22 @@
+/* eslint-disable no-unused-vars */
+
+module.exports = (sequelize, DataTypes) => {
+  const Tag = sequelize.define('Tag', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+    },
+    name: {
+      allowNull: false,
+      unique: true,
+      type: DataTypes.STRING,
+    },
+  }, {});
+  Tag.associate = (models) => {
+    Tag.belongsToMany(models.File, {
+      through: 'TagFiles',
+    });
+  };
+  return Tag;
+};
