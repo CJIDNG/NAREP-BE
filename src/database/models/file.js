@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createUniqueSlug } from '../../helpers/utils';
 
 module.exports = (sequelize, DataTypes) => {
@@ -6,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
     },
     title: {
       allowNull: false,
@@ -18,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       type: DataTypes.UUID,
-      foreignKey: true,
     },
     slug: {
       allowNull: false,
       type: DataTypes.STRING,
+      unique: true,
     },
     numberOfDownload: {
       type: DataTypes.INTEGER,
@@ -38,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   File.beforeCreate((newFile) => {
-    newFile.setDataValue('slug', createUniqueSlug(newFile.title));
+    newFile.slug = createUniqueSlug(newFile.title);
   });
 
   File.associate = (models) => {
@@ -51,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     File.belongsTo(models.Sector, {
       foreignKey: 'sectorId',
       as: 'sector',
+      onDelete: 'CASCADE',
     });
 
     File.belongsToMany(models.Tag, {

@@ -6,8 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
     },
-    sector: {
+    name: {
       allowNull: false,
       unique: true,
       type: DataTypes.STRING,

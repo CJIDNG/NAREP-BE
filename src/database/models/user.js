@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
-import AuthHelper from '../../helpers/auth';
+import { hashPassword } from '../../helpers/utils';
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       email: {
         type: DataTypes.STRING,
@@ -34,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
   User.beforeCreate(async (newUser) => {
-    newUser.password = AuthHelper.hashPassword(newUser.password);
+    newUser.password = hashPassword(newUser.password);
   });
   User.associate = (models) => {
     User.hasMany(models.File, {

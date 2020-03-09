@@ -15,6 +15,9 @@
     },
     "SECRET": {
       "required": true
+    },
+    "SALTS_ROUNDS": {
+      "required": true
     }
   },
   "buildpacks": [
@@ -23,6 +26,9 @@
     }
   ],
   "stack": "heroku-18",
+  "scripts": {
+    "postdeploy": "npx sequelize-cli db:seed:all"
+  },
   "formation": {
     "web": {
       "quantity": 1

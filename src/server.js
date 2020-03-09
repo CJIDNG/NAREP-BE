@@ -6,9 +6,8 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import docs from './docs';
 import router from './routes';
-import ServerResponse from './helpers/serverResponse';
+import { serverErrorResponse } from './helpers/serverResponse';
 
-const { serverErrorResponse } = ServerResponse;
 const debug = Debug('dev');
 const app = express();
 

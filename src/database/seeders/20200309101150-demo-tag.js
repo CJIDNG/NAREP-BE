@@ -23,6 +23,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: uuidv4(),
+        name: 'road',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ],
     {},
   ),
