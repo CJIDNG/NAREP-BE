@@ -37,6 +37,10 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    fileName: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     sectorId: {
       type: Sequelize.STRING,
       allowNull: false,

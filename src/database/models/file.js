@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     fileType: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
+    },
+    fileName: {
+      allowNull: false,
+      type: DataTypes.STRING,
     },
     sectorId: {
       allowNull: false,
