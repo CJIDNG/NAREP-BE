@@ -15,9 +15,6 @@
     },
     "SECRET": {
       "required": true
-    },
-    "SALTS_ROUNDS": {
-      "required": true
     }
   },
   "buildpacks": [

@@ -5,10 +5,20 @@ module.exports = {
     tagId: {
       allowNull: false,
       type: Sequelize.UUID,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Tags',
+        key: 'id',
+      },
     },
     fileId: {
       allowNull: false,
       type: Sequelize.UUID,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Files',
+        key: 'id',
+      },
     },
     createdAt: {
       allowNull: false,

@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
   Tag.associate = (models) => {
     Tag.belongsToMany(models.File, {
       through: 'TagFiles',
+      as: 'files',
+      foreignKey: 'tagId',
+      onDelete: 'CASCADE',
     });
   };
   return Tag;

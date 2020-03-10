@@ -59,9 +59,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'sector',
       onDelete: 'CASCADE',
     });
-
     File.belongsToMany(models.Tag, {
       through: 'TagFiles',
+      as: 'tags',
+      foreignKey: 'fileId',
+      onDelete: 'CASCADE',
     });
   };
   return File;

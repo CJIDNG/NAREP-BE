@@ -7,31 +7,31 @@ module.exports = {
     [
       {
         id: uuidv4(),
-        name: 'Oil and Gas',
+        name: 'Oil and Gas'.toLocaleLowerCase(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Solid Minerals',
+        name: 'Solid Minerals'.toLocaleLowerCase(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Forest Resources',
+        name: 'Forest Resources'.toLocaleLowerCase(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Climate Change',
+        name: 'Climate Change'.toLocaleLowerCase(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Water and Marine Resources',
+        name: 'Water and Marine Resources'.toLocaleLowerCase(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
