@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-server": "babel -d ./build ./src -s",
+    "build-server": "babel src --out-dir dist --source-maps inline --copy-files",
     "build": "npm run clean && npm run build-server",
     "clean": "rm -rf dist && mkdir dist",
     "pretest": "NODE_ENV=test npm run reset:db",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --exit --timeout 10000  --require @babel/register ./src/tests/*",
-    "start": "node ./dist/server.js",
+   "start": "node dist/server.js",
     "server": "DEBUG=dev nodemon --exec babel-node src/server.js",
     "reset:db": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "migration": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "migration": "npx sequelize-cli db:migrate",
     "heroku-postbuild": "npm run build && npm run migration",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
