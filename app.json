@@ -23,9 +23,6 @@
     }
   ],
   "stack": "heroku-18",
-  "scripts": {
-    "postdeploy": "npx sequelize-cli db:seed:all"
-  },
   "formation": {
     "web": {
       "quantity": 1
