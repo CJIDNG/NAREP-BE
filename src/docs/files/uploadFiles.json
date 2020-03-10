@@ -1,0 +1,112 @@
+{
+  "post": {
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "tags": [
+      "Files"
+    ],
+    "summary": "Upload new files",
+    "description": "Admin can upload new files",
+    "parameters": [
+      {
+        "name": "Upload new files",
+        "in": "body",
+        "description": "request payload",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "docs title"
+            },
+            "description": {
+              "type": "string",
+              "example": "a very short description"
+            },
+            "sector": {
+              "type": "string",
+              "example": "Oil and Gas"
+            },
+            "file": {
+              "type": "string",
+              "example": "https://images.unsplash.com/photo-1583809733939-10e2dcf60761?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+            }
+          }
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "201": {
+        "description": "Upload successful",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 201
+            },
+            "method": {
+              "type": "string",
+              "example": "POST"
+            },
+            "message": {
+              "type": "string",
+              "example": "You have successfully uploaded file"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "message": "file has been created successfully!",
+                  "createdFile": {
+                    "id": "f19b6399-a1ad-4db4-9201-d14ab6f729f6",
+                    "numberOfDownload": 0,
+                    "title": "docs testing",
+                    "description": "a very short description",
+                    "fileType": "jpeg",
+                    "sectorId": "013411a5-38ce-40db-8328-74b6bf5521f3",
+                    "userId": "5b8e15ed-2113-4e58-a533-c24d1b09d856",
+                    "slug": "testing-1583835882202",
+                    "fileName": "7b2730334cc7ab62a5052fde32730015",
+                    "updatedAt": "2020-03-10T10:24:42.200Z",
+                    "createdAt": "2020-03-10T10:24:42.200Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Title already exists",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 400
+            },
+            "method": {
+              "type": "string",
+              "example": "POST"
+            },
+            "message": {
+              "type": "string",
+              "example": "File with the name already exists"
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        }
+      }
+    }
+  }
+}
