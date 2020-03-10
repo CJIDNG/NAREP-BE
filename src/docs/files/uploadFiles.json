@@ -29,6 +29,10 @@
             "sector": {
               "type": "string",
               "example": "Oil and Gas"
+            },
+            "file": {
+              "type": "string",
+              "example": "https://images.unsplash.com/photo-1583809733939-10e2dcf60761?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
             }
           }
         }
@@ -45,7 +49,7 @@
           "properties": {
             "status": {
               "type": "number",
-              "example": 200
+              "example": 201
             },
             "method": {
               "type": "string",
