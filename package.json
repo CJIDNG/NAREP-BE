@@ -12,7 +12,7 @@
     "start": "node ./dist/server.js",
     "server": "DEBUG=dev nodemon --exec babel-node src/server.js",
     "reset:db": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "migration": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "migration": "npx sequelize-cli db:migrate",
     "heroku-postbuild": "npm run build && npm run migration",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
