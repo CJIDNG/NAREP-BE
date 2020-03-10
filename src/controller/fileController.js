@@ -2,7 +2,7 @@
 import fs from 'fs';
 import model from '../database/models';
 import { errorResponse, successResponse } from '../helpers/serverResponse';
-import { createUniqueSlug } from '../helpers/utils';
+import { createUniqueSlug, createFileExtension } from '../helpers/utils';
 
 global.appRoot = __dirname;
 const {
@@ -12,9 +12,9 @@ const {
 export const uploadFile = async (req, res, next) => {
   try {
     const {
-      title, description, fileType, sector,
+      title, description, sector,
     } = req.body;
-    const { filename, path } = req.file;
+    const { filename, path, mimetype } = req.file;
     const { id } = req.user;
     const findFile = await File.findOne({ where: { title } });
     if (findFile) {
@@ -26,7 +26,7 @@ export const uploadFile = async (req, res, next) => {
     const newFile = {
       title,
       description,
-      fileType,
+      fileType: createFileExtension(mimetype),
       sectorId,
       userId: id,
       slug: createUniqueSlug(title),

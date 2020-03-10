@@ -22,3 +22,8 @@ export const decodeToken = (req) => {
 };
 
 export const createUniqueSlug = (title) => `${slug(title, { lower: true })}-${Date.now()}`;
+
+export const createFileExtension = (mimeType) => {
+  const extension = mimeType.split('/')[1];
+  return extension;
+};
