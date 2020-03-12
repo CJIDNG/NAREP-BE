@@ -6,7 +6,9 @@ import app from '../../server';
 import { adminSignin, userSignin } from '../mockdata/seededUsers';
 
 const upload = multer({ dest: '/tmp/' });
+
 app.use(upload.any());
+
 const {
   expect,
 } = chai;
