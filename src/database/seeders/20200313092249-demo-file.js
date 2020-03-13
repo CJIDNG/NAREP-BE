@@ -11,7 +11,7 @@ module.exports = {
           id: 'ab8b9dd2-22bc-4dc2-b2dd-942a5dcb5437',
           title: 'lorem',
           description: 'lorem ipsum dolor',
-          slug: createUniqueSlug('lorem'),
+          slug: 'lorem-12939933',
           userId: '5b8e15ed-2113-4e58-a533-c24d1b09d856',
           numberOfDownload: 0,
           fileType: 'png',
