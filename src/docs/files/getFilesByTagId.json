@@ -9,7 +9,7 @@
     "parameters": [
       {
         "name": "tagId",
-        "in": "params",
+        "in": "path",
         "required": false,
         "description": "The tag of the files to return",
         "schema": {

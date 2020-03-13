@@ -9,7 +9,7 @@
     "parameters": [
       {
         "name": "sectorId",
-        "in": "params",
+        "in": "path",
         "required": false,
         "description": "The sector of the files to return",
         "schema": {

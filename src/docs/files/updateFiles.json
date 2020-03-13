@@ -1,0 +1,132 @@
+{
+  "put": {
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "tags": [
+      "Files"
+    ],
+    "summary": "Update files",
+    "description": "Admin can update files",
+    "parameters": [
+      {
+        "name": "Edit an existing article",
+        "in": "body",
+        "description": "request payload for new article",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "new edit"
+            },
+            "description": {
+              "type": "string",
+              "example": "a very long description"
+            },
+            "sector": {
+              "type": "string",
+              "example": "solid minerals"
+            },
+            "tags": {
+              "type": "array",
+              "example": [
+                "news",
+                "information",
+                "editing",
+                "technology"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The slug of the file",
+        "schema": {
+          "type": "string",
+          "example": "demo-74536"
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Update file",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": "a993e7e2-9350-41d5-a365-0a8b76f59b5f",
+            "title": "new titles",
+            "description": "new description",
+            "userId": "5b8e15ed-2113-4e58-a533-c24d1b09d856",
+            "slug": "passport-1584093539450",
+            "numberOfDownload": 0,
+            "fileType": "pdf",
+            "fileName": "c597cb4f4417d2a5064752516434aab4",
+            "sectorId": "4e516c87-e25c-4980-ae0e-17ecaa9935dc",
+            "createdAt": "2020-03-13T09:58:59.449Z",
+            "updatedAt": "2020-03-13T12:37:12.979Z"
+          }
+        }
+      },
+      "404": {
+        "description": "File not found ",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "article": {
+                  "type": "string",
+                  "example": "File not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Route accessed with an invalid token",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Wrongly input details",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Title cannot be empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
