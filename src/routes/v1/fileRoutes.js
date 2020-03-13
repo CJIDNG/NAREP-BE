@@ -7,6 +7,7 @@ import {
 import { uploadFile } from '../../controller/uploadFilesController';
 import { downloadFile } from '../../controller/downloadFilesController';
 import { updateFile } from '../../controller/updateFIlesController';
+import { deleteFile } from '../../controller/deleteFileController';
 
 import { verifyAdmin, verifyUser } from '../../middlewares/authorization';
 
@@ -17,11 +18,15 @@ const { uploadValidation } = FileValidation;
 
 const router = express.Router();
 router.post('/uploads', verifyUser, verifyAdmin, upload.single('file'), uploadValidation, uploadFile);
+
 router.get('/', getFiles);
 router.get('/sectors/:sectorId', getFilesBySector);
 router.get('/tags/:id', getFilesByTag);
 router.get('/search/', searchFile);
 router.get('/downloads', verifyUser, downloadFile);
+
 router.put('/:slug', verifyUser, verifyAdmin, upload.single('file'), uploadValidation, updateFile);
+
+router.delete('/:slug', verifyUser, verifyAdmin, deleteFile);
 
 export default router;
