@@ -12,7 +12,7 @@ const debug = Debug('dev');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 app.use(cors());
 app.use(logger('dev'));
