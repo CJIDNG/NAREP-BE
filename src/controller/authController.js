@@ -60,6 +60,7 @@ export const signIn = async (req, res, next) => {
     });
     return successResponse(res, 200, 'user', { message: 'User successfully logged in', token });
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };
