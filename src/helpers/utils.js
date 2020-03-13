@@ -16,14 +16,6 @@ export const hashPassword = (password) => hashSync(password, 10);
 
 export const comparePassword = (password, hashedPassword) => compareSync(password, hashedPassword);
 
-export const decodeToken = (req) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const decoded = verifyToken(token);
-  req.user = decoded;
-  const { role } = req.user;
-  return role;
-};
-
 export const createUniqueSlug = (title) => `${slug(title, { lower: true })}-${Date.now()}`;
 
 export const createFileExtension = (mimeType) => {
