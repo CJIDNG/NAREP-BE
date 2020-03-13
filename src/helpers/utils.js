@@ -53,3 +53,13 @@ export const generateTag = async (tag, id) => {
     });
   });
 };
+
+export const pagination = (page = 1, pageLimit = 10) => {
+  const [filePage, filePageLimit] = [page, pageLimit];
+  const offset = (filePage - 1) * filePageLimit;
+  const limit = filePageLimit;
+  return {
+    offset,
+    limit,
+  };
+};
