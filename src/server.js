@@ -21,7 +21,7 @@ app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(docs));
 app.use(serverErrorResponse);
 
 process.on('uncaughtException', (err) => {
-  console.error(err.stack);
+  debug(err.stack);
   process.exit(1);
 });
 const server = app.listen(process.env.PORT || 3000, () => {

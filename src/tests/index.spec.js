@@ -4,3 +4,4 @@ import './middlewares/authValidation.spec';
 import './files/uploadFiles.spec';
 import './files/getFiles.spec';
 import './middlewares/fileValidation.spec';
+import './files/downloadFiles.spec';
