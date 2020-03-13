@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
 import model from '../database/models';
-import { successResponse } from '../helpers/serverResponse';
+import { successResponse, errorResponse } from '../helpers/serverResponse';
 import { pagination } from '../helpers/utils';
 
 global.appRoot = __dirname;
@@ -122,6 +122,34 @@ export const searchFile = async (req, res, next) => {
     });
     const { rows: allFiles, count: filesCount } = files;
     return successResponse(res, 200, 'files', { filesCount, allFiles });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getFileBySlug = async (req, res, next) => {
+  try {
+    const { params: { slug } } = req;
+    const foundFile = await File.findOne({
+      where: { slug },
+    });
+    if (!foundFile) {
+      return errorResponse(res, 404, { message: 'File not found' });
+    }
+    const file = await File.findOne({
+      order: [['updatedAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'username'],
+        },
+      ],
+      where: { slug },
+    });
+    await File.increment({ numberOfDownload: 1 }, { where: { slug } });
+
+    return successResponse(res, 200, 'file', file);
   } catch (error) {
     return next(error);
   }

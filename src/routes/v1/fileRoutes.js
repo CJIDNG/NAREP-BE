@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 
 import {
-  getFiles, getFilesBySector, getFilesByTag, searchFile,
+  getFiles, getFilesBySector, getFilesByTag, searchFile, getFileBySlug,
 } from '../../controller/getFilesController';
 import { uploadFile } from '../../controller/uploadFilesController';
 import { downloadFile } from '../../controller/downloadFilesController';
@@ -24,6 +24,7 @@ router.get('/sectors/:sectorId', getFilesBySector);
 router.get('/tags/:id', getFilesByTag);
 router.get('/search/', searchFile);
 router.get('/downloads', verifyUser, downloadFile);
+router.get('/:slug', getFileBySlug);
 
 router.put('/:slug', verifyUser, verifyAdmin, upload.single('file'), uploadValidation, updateFile);
 

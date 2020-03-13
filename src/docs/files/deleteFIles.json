@@ -8,14 +8,14 @@
     "tags": [
       "Files"
     ],
-    "summary": "Delete Article",
-    "description": "User delete an article \n",
+    "summary": "Delete File",
+    "description": "User delete an file \n",
     "parameters": [
       {
         "name": "slug",
         "in": "path",
         "required": true,
-        "description": "The slug of the article to be edited",
+        "description": "The slug of the file to be edited",
         "schema": {
           "type": "string",
           "example": "getting-started-with-nodejs-&-express-1564498223366-74536"
@@ -31,7 +31,7 @@
         "schema": {
           "type": "object",
           "properties": {
-            "article": {
+            "file": {
               "type": "object",
               "properties": {
                 "message": {
@@ -44,14 +44,14 @@
         }
       },
       "404": {
-        "description": "When the article doesn't exist",
+        "description": "When the file doesn't exist",
         "schema": {
           "type": "object",
           "properties": {
             "errors": {
               "type": "object",
               "properties": {
-                "article": {
+                "file": {
                   "type": "string",
                   "example": "File not found"
                 }
@@ -61,7 +61,7 @@
         }
       },
       "403": {
-        "description": "When a non-logged in user tries to edit an article",
+        "description": "When a non-logged in user tries to edit an file",
         "schema": {
           "type": "object",
           "properties": {

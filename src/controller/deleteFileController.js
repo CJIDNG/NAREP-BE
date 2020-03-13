@@ -19,7 +19,7 @@ export const deleteFile = async (req, res, next) => {
     if (!foundFile) {
       return errorResponse(res, 404, { message: 'File not found' });
     }
-    await foundFile.destroy(
+    await File.destroy(
       {
         where: {
           slug,
