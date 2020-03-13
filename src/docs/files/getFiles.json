@@ -1,0 +1,80 @@
+{
+  "get": {
+    "security": [],
+    "tags": [
+      "Files"
+    ],
+    "summary": "Get All Files",
+    "description": "Return all files available \n",
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "Enter page number",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "description": "Enter page size",
+        "required": false,
+        "type": "integer"
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "All files returned successfully",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "files": {
+              "type": "array",
+              "example": [
+                {
+                  "id": "55ae3f49-c63e-4b89-9fc6-f3250714ec49",
+                  "name": "healt",
+                  "files": [
+                    {
+                      "id": "a993e7e2-9350-41d5-a365-0a8b76f59b5f",
+                      "title": "passport",
+                      "description": "deded",
+                      "userId": "5b8e15ed-2113-4e58-a533-c24d1b09d856",
+                      "slug": "passport-1584093539450",
+                      "numberOfDownload": 0,
+                      "fileType": "pdf",
+                      "fileName": "c597cb4f4417d2a5064752516434aab4",
+                      "sectorId": "4e516c87-e25c-4980-ae0e-17ecaa9935dc",
+                      "createdAt": "2020-03-13T09:58:59.449Z",
+                      "updatedAt": "2020-03-13T09:58:59.449Z"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "files not found",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "string",
+                  "example": "files not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

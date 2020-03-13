@@ -1,0 +1,61 @@
+{
+  "get": {
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "tags": [
+      "Files"
+    ],
+    "summary": "Download files",
+    "description": "Authenticated User can download files",
+    "parameters": [
+      {
+        "name": "filename",
+        "in": "query",
+        "required": true,
+        "description": "The filename you want to download",
+        "schema": {
+          "type": "string",
+          "example": "5fff0510643266db187ce9f19e84b856"
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "201": {
+        "description": "Downloaded successfully",
+        "schema": {
+          "type": "object"
+        }
+      },
+      "404": {
+        "description": "File not found ",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 404
+            },
+            "method": {
+              "type": "string",
+              "example": "GET"
+            },
+            "message": {
+              "type": "string",
+              "example": "File not found"
+            },
+            "data": {
+              "type": "string",
+              "example": null
+            }
+          }
+        }
+      }
+    }
+  }
+}
