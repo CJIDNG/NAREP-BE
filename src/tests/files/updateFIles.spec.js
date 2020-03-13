@@ -23,7 +23,7 @@ let authorizedUser;
 let fileName;
 const slug = 'lorem-12939933';
 
-describe('Files downloads', () => {
+describe('Files update', () => {
   before((done) => {
     chai
       .request(app)
@@ -35,7 +35,7 @@ describe('Files downloads', () => {
         done();
       });
   });
-  it('should download a file successfully', (done) => {
+  it('should update a file successfully', (done) => {
     request
       .put(`${API_PREFIX}/files/${slug}`)
       .set('Authorization', `Bearer ${authorizedUser}`)
