@@ -147,7 +147,6 @@ export const getFileBySlug = async (req, res, next) => {
       ],
       where: { slug },
     });
-    await File.increment({ numberOfDownload: 1 }, { where: { slug } });
 
     return successResponse(res, 200, 'file', file);
   } catch (error) {
