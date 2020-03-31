@@ -27,7 +27,7 @@ describe('Get Files', () => {
   });
   it('should get all files by sector successfully', (done) => {
     server()
-      .get(`${API_PREFIX}/sectors/${sectorId}`)
+      .get(`${API_PREFIX}?sectorId=${sectorId}`)
       .end((err, res) => {
         expect(res.status).to.be.eql(200);
         expect(res.body).to.have.property('files');
