@@ -21,7 +21,6 @@ export const uploadFile = async (req, res, next) => {
       },
       user: { id },
     } = req;
-    console.log(req.file);
     const findFile = await File.findOne({ where: { title } });
 
     if (findFile) {
