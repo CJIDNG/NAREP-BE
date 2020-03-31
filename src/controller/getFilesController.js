@@ -1,19 +1,37 @@
 import { Op } from 'sequelize';
 
 import model from '../database/models';
-import { successResponse } from '../helpers/serverResponse';
+import { successResponse, errorResponse } from '../helpers/serverResponse';
 import { pagination } from '../helpers/utils';
 
 global.appRoot = __dirname;
 const {
-  File, User, Tag,
+  File, User, Tag, Sector,
 } = model;
 
 
 export const getFiles = async (req, res, next) => {
   try {
-    const { query: { page, limit } } = req;
+    const { query: { page, limit, sectorId } } = req;
     const pageNumber = pagination(page, limit);
+    if (sectorId) {
+      const files = await File.findAndCountAll({
+        offset: pageNumber.offset,
+        limit: pageNumber.limit,
+        order: [['updatedAt', 'DESC']],
+        subQuery: false,
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'username'],
+          },
+        ],
+        where: { sectorId },
+      });
+      const { rows: allFiles, count: filesCount } = files;
+      return successResponse(res, 200, 'files', { filesCount, allFiles });
+    }
     const files = await File.findAndCountAll({
       offset: pageNumber.offset,
       limit: pageNumber.limit,
@@ -26,30 +44,6 @@ export const getFiles = async (req, res, next) => {
           attributes: ['id', 'username'],
         },
       ],
-    });
-    const { rows: allFiles, count: filesCount } = files;
-    return successResponse(res, 200, 'files', { filesCount, allFiles });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-export const getFilesBySector = async (req, res, next) => {
-  const { params: { sectorId }, query: { page, limit } } = req;
-  try {
-    const pageNumber = pagination(page, limit);
-    const files = await File.findAndCountAll({
-      offset: pageNumber.offset,
-      limit: pageNumber.limit,
-      order: [['updatedAt', 'DESC']],
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'username'],
-        },
-      ],
-      where: { sectorId },
     });
     const { rows: allFiles, count: filesCount } = files;
     return successResponse(res, 200, 'files', { filesCount, allFiles });
@@ -122,6 +116,51 @@ export const searchFile = async (req, res, next) => {
     });
     const { rows: allFiles, count: filesCount } = files;
     return successResponse(res, 200, 'files', { filesCount, allFiles });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getFileBySlug = async (req, res, next) => {
+  try {
+    const { params: { slug } } = req;
+    const foundFile = await File.findOne({
+      where: { slug },
+    });
+    if (!foundFile) {
+      return errorResponse(res, 404, { message: 'File not found' });
+    }
+    const file = await File.findOne({
+      order: [['updatedAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'username'],
+        },
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: ['id', 'name'],
+        },
+      ],
+      where: { slug },
+    });
+
+    return successResponse(res, 200, 'file', file);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getSectors = async (req, res, next) => {
+  try {
+    const sectors = await Sector.findAll({
+      order: [['updatedAt', 'DESC']],
+      subQuery: false,
+      attributes: ['id', 'name'],
+    });
+    return successResponse(res, 200, 'sectors', sectors);
   } catch (error) {
     return next(error);
   }

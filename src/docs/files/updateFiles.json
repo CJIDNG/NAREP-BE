@@ -12,9 +12,9 @@
     "description": "Admin can update files",
     "parameters": [
       {
-        "name": "Edit an existing article",
+        "name": "Edit an existing file",
         "in": "body",
-        "description": "request payload for new article",
+        "description": "request payload for new file",
         "schema": {
           "type": "object",
           "properties": {
@@ -84,7 +84,7 @@
             "errors": {
               "type": "object",
               "properties": {
-                "article": {
+                "file": {
                   "type": "string",
                   "example": "File not found"
                 }

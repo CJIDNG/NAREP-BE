@@ -9,8 +9,16 @@
       "Files"
     ],
     "summary": "Upload new files",
+    "consumes": "multipart/form-data",
     "description": "Admin can upload new files",
     "parameters": [
+      {
+        "name": "file",
+        "in": "formData",
+        "description": "Enter file",
+        "required": true,
+        "type": "file"
+      },
       {
         "name": "Upload new files",
         "in": "body",

@@ -1,0 +1,99 @@
+{
+  "delete": {
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "tags": [
+      "Files"
+    ],
+    "summary": "Delete File",
+    "description": "User delete an file \n",
+    "parameters": [
+      {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The slug of the file to be edited",
+        "schema": {
+          "type": "string",
+          "example": "getting-started-with-nodejs-&-express-1564498223366-74536"
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "File deleted successfully",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "File deleted successfully"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "When the file doesn't exist",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "example": "File not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "When a non-logged in user tries to edit an file",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Access denied"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Route accessed with an invalid token",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No token provided"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

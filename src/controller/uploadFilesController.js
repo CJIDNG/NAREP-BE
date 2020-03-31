@@ -16,7 +16,9 @@ export const uploadFile = async (req, res, next) => {
         title, description, sector, tags,
       },
 
-      file: { filename, path, mimetype },
+      file: {
+        path, mimetype, originalname,
+      },
       user: { id },
     } = req;
     const findFile = await File.findOne({ where: { title } });
@@ -32,7 +34,7 @@ export const uploadFile = async (req, res, next) => {
     }
 
     const { id: sectorId } = findSector;
-    const file = `${global.appRoot}/uploads/${filename}`;
+    const file = `${global.appRoot}/uploads/${originalname}`;
     const newFile = {
       title,
       description,
@@ -40,7 +42,7 @@ export const uploadFile = async (req, res, next) => {
       sectorId,
       userId: id,
       slug: createUniqueSlug(title),
-      fileName: filename,
+      fileName: originalname,
     };
     const createdFile = await File.create(newFile);
 
