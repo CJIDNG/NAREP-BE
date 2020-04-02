@@ -10,7 +10,8 @@ export const updateFile = async (req, res, next) => {
     const {
       params: { slug },
       user: { id },
-      file: { mimetype },
+
+      file,
     } = req;
     const foundFile = await File.findOne({
       where: {
@@ -21,9 +22,27 @@ export const updateFile = async (req, res, next) => {
     if (!foundFile) {
       return errorResponse(res, 404, { message: 'File not found' });
     }
+    if (!file) {
+      const newUpdate = {
+        ...req.body,
+      };
+      const updatedFile = await foundFile.update(
+        {
+          ...newUpdate,
+        },
+        {
+          where: {
+            slug,
+            userId: id,
+          },
+          returning: true,
+        },
+      );
+      return successResponse(res, 200, 'file', { message: 'File has been updated successfully!', updatedFile });
+    }
     const newUpdate = {
       ...req.body,
-      fileType: createFileExtension(mimetype),
+      fileType: createFileExtension(file.mimetype),
     };
     const updatedFile = await foundFile.update(
       {
