@@ -1,8 +1,7 @@
-import { Op } from 'sequelize';
-
 import model from '../database/models';
 import { successResponse, errorResponse } from '../helpers/serverResponse';
 import { pagination } from '../helpers/utils';
+import { searchResults } from '../helpers/searchFiles';
 
 global.appRoot = __dirname;
 const {
@@ -75,47 +74,15 @@ export const getFilesByTag = async (req, res, next) => {
 };
 
 export const searchFile = async (req, res, next) => {
-  const {
-    query: { title, tag, author },
-  } = req;
-  const keyword = title || '';
-  const tagValue = tag || '';
-  const authorValue = author || '';
-
   try {
-    const files = await File.findAndCountAll({
-      where: {
-        title: {
-          [Op.iLike]: `%${keyword}%`,
-        },
+    const {
+      query: {
+        page, limit, searchKey,
       },
-      attributes: ['id', 'title', 'description', 'slug'],
-      include: [
-        {
-          model: User,
-          as: 'user',
-          where: {
-            username: {
-              [Op.iLike]: `%${authorValue}%`,
-            },
-          },
-          attributes: ['id', 'username'],
-        },
-        {
-          model: Tag,
-          as: 'tags',
-          through: { attributes: [] },
-          where: {
-            name: {
-              [Op.iLike]: `%${tagValue}%`,
-            },
-          },
-        },
-      ]
-      ,
-    });
-    const { rows: allFiles, count: filesCount } = files;
-    return successResponse(res, 200, 'files', { filesCount, allFiles });
+    } = req;
+    const files = await searchResults(page, limit, searchKey);
+    const { length: filesCount } = files;
+    return successResponse(res, 200, 'files', { filesCount, files });
   } catch (error) {
     return next(error);
   }

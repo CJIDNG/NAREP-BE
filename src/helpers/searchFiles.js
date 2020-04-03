@@ -1,5 +1,10 @@
-import { Op } from 'sequelize';
+import {
+  Op, where, cast, col,
+} from 'sequelize';
+import { pagination } from './utils';
+import models from '../database/models';
 
+const { File } = models;
 export const fileByTagWhere = (value) => {
   const tagWhere = {
     name: {
@@ -25,4 +30,27 @@ export const fileBySectorWhere = (value) => {
     },
   };
   return sectorWhere;
+};
+
+export const searchResults = async (page, limit, searchKey) => {
+  const paginate = pagination(page, limit);
+  const key = [
+    where(
+      cast(col('File.title'), 'varchar'),
+      { [Op.iLike]: `%${searchKey}%` },
+    ),
+    where(
+      cast(col('File.description'), 'varchar'),
+      { [Op.iLike]: `%${searchKey}%` },
+    ),
+  ];
+  const results = await File.findAll({
+    where: {
+      [Op.or]: key,
+    },
+    offset: paginate.offset,
+    limit: paginate.limit,
+  });
+
+  return results;
 };
