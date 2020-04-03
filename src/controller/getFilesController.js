@@ -1,7 +1,7 @@
 import model from '../database/models';
 import { successResponse, errorResponse } from '../helpers/serverResponse';
 import { pagination } from '../helpers/utils';
-import { searchResults } from '../helpers/searchFiles';
+import { searchFilesResults } from '../helpers/searchFiles';
 
 global.appRoot = __dirname;
 const {
@@ -80,7 +80,7 @@ export const searchFile = async (req, res, next) => {
         page, limit, searchKey,
       },
     } = req;
-    const files = await searchResults(page, limit, searchKey);
+    const files = await searchFilesResults(page, limit, searchKey);
     const { length: filesCount } = files;
     return successResponse(res, 200, 'files', { filesCount, files });
   } catch (error) {

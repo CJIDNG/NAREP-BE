@@ -4,7 +4,7 @@ import {
 import { pagination } from './utils';
 import models from '../database/models';
 
-const { File } = models;
+const { File, User } = models;
 export const fileByTagWhere = (value) => {
   const tagWhere = {
     name: {
@@ -32,7 +32,7 @@ export const fileBySectorWhere = (value) => {
   return sectorWhere;
 };
 
-export const searchResults = async (page, limit, searchKey) => {
+export const searchFilesResults = async (page, limit, searchKey) => {
   const paginate = pagination(page, limit);
   const key = [
     where(
@@ -45,6 +45,25 @@ export const searchResults = async (page, limit, searchKey) => {
     ),
   ];
   const results = await File.findAll({
+    where: {
+      [Op.or]: key,
+    },
+    offset: paginate.offset,
+    limit: paginate.limit,
+  });
+
+  return results;
+};
+
+export const searchUsersResults = async (page, limit, searchKey) => {
+  const paginate = pagination(page, limit);
+  const key = [
+    where(
+      cast(col('User.username'), 'varchar'),
+      { [Op.iLike]: `%${searchKey}%` },
+    ),
+  ];
+  const results = await User.findAll({
     where: {
       [Op.or]: key,
     },
