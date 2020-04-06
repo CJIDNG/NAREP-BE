@@ -82,7 +82,7 @@ export const searchFile = async (req, res, next) => {
     } = req;
     const files = await searchFilesResults(page, limit, searchKey);
     const { length: filesCount } = files;
-    return successResponse(res, 200, 'files', { filesCount, files });
+    return successResponse(res, 200, 'files', { filesCount, allFiles: files });
   } catch (error) {
     return next(error);
   }

@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { Op } from 'sequelize';
 import { errorResponse, successResponse } from '../helpers/serverResponse';
 import model from '../database/models';
 
@@ -67,15 +68,17 @@ export const deleteUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   try {
+    const { user: { userEmail } } = req;
     const users = await User.findAndCountAll({
+      where: { email: { [Op.not]: userEmail } },
       order: [['updatedAt', 'DESC']],
       subQuery: false,
       attributes: {
-        exclude: ['password', 'id', 'role', 'createdAt', 'updatedAt'],
+        exclude: ['password', 'createdAt', 'updatedAt'],
       },
     });
     const { rows: allUsers, count: usersCount } = users;
-    return successResponse(res, 200, 'files', { usersCount, allUsers });
+    return successResponse(res, 200, 'users', { usersCount, allUsers });
   } catch (error) {
     return next(error);
   }

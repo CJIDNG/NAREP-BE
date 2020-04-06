@@ -48,6 +48,13 @@ export const searchFilesResults = async (page, limit, searchKey) => {
     where: {
       [Op.or]: key,
     },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'username'],
+      },
+    ],
     offset: paginate.offset,
     limit: paginate.limit,
   });
