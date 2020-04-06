@@ -22,11 +22,11 @@ router.post('/uploads', verifyUser, verifyAdmin, upload.single('file'), uploadVa
 router.get('/', getFiles);
 router.get('/sectors', getSectors);
 router.get('/tags/:id', getFilesByTag);
-router.get('/search/', searchFile);
+router.get('/search', searchFile);
 router.get('/downloads', downloadFile);
 router.get('/:slug', getFileBySlug);
 
-router.put('/:slug', verifyUser, verifyAdmin, upload.single('file'), uploadValidation, updateFile);
+router.post('/:slug', verifyUser, verifyAdmin, upload.single('file'), updateFile);
 
 router.delete('/:slug', verifyUser, verifyAdmin, deleteFile);
 
