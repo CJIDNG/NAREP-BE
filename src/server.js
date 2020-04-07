@@ -1,5 +1,6 @@
 import express from 'express';
 import Debug from 'debug';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import logger from 'morgan';
@@ -8,7 +9,8 @@ import docs from './docs';
 import router from './routes';
 import { serverErrorResponse } from './helpers/serverResponse';
 
-const debug = Debug('dev');
+dotenv.config();
+const debug = Debug(process.env.DEBUG);
 const app = express();
 
 app.use(cors());

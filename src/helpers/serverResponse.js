@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Debug from 'debug';
 
-const debug = Debug('dev');
-
 export const errorResponse = (res, status, error) => res.status(status).json({
   errors: error,
 });
