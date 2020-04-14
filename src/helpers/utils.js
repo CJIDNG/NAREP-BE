@@ -2,6 +2,7 @@ import jwt, { verify } from 'jsonwebtoken';
 import { hashSync, compareSync } from 'bcryptjs';
 import { config } from 'dotenv';
 import slug from 'slug';
+import path from 'path';
 import model from '../database/models';
 
 const { Tag } = model;
@@ -18,9 +19,9 @@ export const comparePassword = (password, hashedPassword) => compareSync(passwor
 
 export const createUniqueSlug = (title) => `${slug(title, { lower: true })}-${Date.now()}`;
 
-export const createFileExtension = (mimeType) => {
-  const extension = mimeType.split('/')[1];
-  return extension;
+export const createFileExtension = (filename) => {
+  const extension = path.extname(filename || '').split('.');
+  return extension[extension.length - 1];
 };
 
 export const findOrCreateTag = async (tag) => {

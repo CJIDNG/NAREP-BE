@@ -1,10 +1,9 @@
-/* eslint-disable import/prefer-default-export */
 import fs from 'fs';
-import model from '../database/models';
-import { errorResponse, successResponse } from '../helpers/serverResponse';
+import model from '../../database/models';
+import { errorResponse, successResponse } from '../../helpers/serverResponse';
 import {
   createUniqueSlug, createFileExtension, generateTag,
-} from '../helpers/utils';
+} from '../../helpers/utils';
 
 const { File, Sector } = model;
 
@@ -17,7 +16,7 @@ export const uploadFile = async (req, res, next) => {
       },
 
       file: {
-        path, mimetype, originalname,
+        path, originalname,
       },
       user: { id },
     } = req;
@@ -37,7 +36,7 @@ export const uploadFile = async (req, res, next) => {
     const newFile = {
       title,
       description,
-      fileType: createFileExtension(mimetype),
+      fileType: createFileExtension(originalname),
       sectorId,
       userId: id,
       slug: createUniqueSlug(title),

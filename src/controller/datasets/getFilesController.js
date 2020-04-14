@@ -1,7 +1,7 @@
-import model from '../database/models';
-import { successResponse, errorResponse } from '../helpers/serverResponse';
-import { pagination } from '../helpers/utils';
-import { searchFilesResults } from '../helpers/searchFiles';
+import model from '../../database/models';
+import { successResponse, errorResponse } from '../../helpers/serverResponse';
+import { pagination } from '../../helpers/utils';
+import { searchFilesResults } from '../../helpers/searchFiles';
 
 global.appRoot = __dirname;
 const {
@@ -28,6 +28,7 @@ export const getFiles = async (req, res, next) => {
         ],
         where: { sectorId },
       });
+
       const { rows: allFiles, count: filesCount } = files;
       return successResponse(res, 200, 'files', { filesCount, allFiles });
     }
@@ -113,7 +114,6 @@ export const getFileBySlug = async (req, res, next) => {
       ],
       where: { slug },
     });
-
     return successResponse(res, 200, 'file', file);
   } catch (error) {
     return next(error);

@@ -3,11 +3,11 @@ import multer from 'multer';
 
 import {
   getFiles, getFilesByTag, searchFile, getFileBySlug, getSectors,
-} from '../../controller/getFilesController';
-import { uploadFile } from '../../controller/uploadFilesController';
-import { downloadFile } from '../../controller/downloadFilesController';
-import { updateFile } from '../../controller/updateFIlesController';
-import { deleteFile } from '../../controller/deleteFileController';
+} from '../../controller/datasets/getFilesController';
+import { uploadFile } from '../../controller/datasets/uploadFilesController';
+import { downloadFile } from '../../controller/datasets/downloadFilesController';
+import { updateFile } from '../../controller/datasets/updateFIlesController';
+import { deleteFile } from '../../controller/datasets/deleteFileController';
 
 import { verifyAdmin, verifyUser } from '../../middlewares/authorization';
 
