@@ -1,6 +1,6 @@
 import { errorResponse, successResponse } from './serverResponse';
 
-export const deleteFile = async (req, res, Model) => {
+export const fileDelete = async (req, res, Model) => {
   const {
     params: { slug },
     user: { id },

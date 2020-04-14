@@ -1,12 +1,12 @@
 import model from '../../database/models';
 
-import { deleteFile } from '../../helpers/deleteFile';
+import { fileDelete } from '../../helpers/deleteFile';
 
 const { PolicyPaper } = model;
 
 export const deletePolicyPaper = async (req, res, next) => {
   try {
-    return deleteFile(req, res, PolicyPaper);
+    return fileDelete(req, res, PolicyPaper);
   } catch (error) {
     return next(error);
   }
