@@ -14,26 +14,44 @@ export const getFiles = async (req, res, next) => {
   try {
     const { query: { page, limit, sectorId } } = req;
     const pageNumber = pagination(page, limit);
-    return client.get('files', async (error, result) => {
-      if (sectorId && result) {
-        const files = await File.findAndCountAll({
-          offset: pageNumber.offset,
-          limit: pageNumber.limit,
-          order: [['updatedAt', 'DESC']],
-          subQuery: false,
-          include: [
-            {
-              model: User,
-              as: 'user',
-              attributes: ['id', 'username'],
-            },
-          ],
-          where: { sectorId },
-        });
+    // return client.get('files', async (error, result) => {
+    //   if (sectorId && result) {
+    //     const files = await File.findAndCountAll({
+    //       offset: pageNumber.offset,
+    //       limit: pageNumber.limit,
+    //       order: [['updatedAt', 'DESC']],
+    //       subQuery: false,
+    //       include: [
+    //         {
+    //           model: User,
+    //           as: 'user',
+    //           attributes: ['id', 'username'],
+    //         },
+    //       ],
+    //       where: { sectorId },
+    //     });
 
-        const { rows: allFiles, count: filesCount } = files;
-        return successResponse(res, 200, 'files', { filesCount, allFiles });
-      }
+    //     const { rows: allFiles, count: filesCount } = files;
+    //     return successResponse(res, 200, 'files', { filesCount, allFiles });
+    //   }
+    //   const files = await File.findAndCountAll({
+    //     offset: pageNumber.offset,
+    //     limit: pageNumber.limit,
+    //     order: [['updatedAt', 'DESC']],
+    //     subQuery: false,
+    //     include: [
+    //       {
+    //         model: User,
+    //         as: 'user',
+    //         attributes: ['id', 'username'],
+    //       },
+    //     ],
+    //   });
+    //   const { rows: allFiles, count: filesCount } = files;
+    //   client.setex('result', 300, JSON.stringify({ ...files }));
+    //   return successResponse(res, 200, 'files', { filesCount, allFiles });
+    // });
+    if (sectorId) {
       const files = await File.findAndCountAll({
         offset: pageNumber.offset,
         limit: pageNumber.limit,
@@ -46,11 +64,27 @@ export const getFiles = async (req, res, next) => {
             attributes: ['id', 'username'],
           },
         ],
+        where: { sectorId },
       });
+
       const { rows: allFiles, count: filesCount } = files;
-      client.setex('result', 300, JSON.stringify({ ...files }));
       return successResponse(res, 200, 'files', { filesCount, allFiles });
+    }
+    const files = await File.findAndCountAll({
+      offset: pageNumber.offset,
+      limit: pageNumber.limit,
+      order: [['updatedAt', 'DESC']],
+      subQuery: false,
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'username'],
+        },
+      ],
     });
+    const { rows: allFiles, count: filesCount } = files;
+    return successResponse(res, 200, 'files', { filesCount, allFiles });
   } catch (error) {
     return next(error);
   }

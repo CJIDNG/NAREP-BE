@@ -1,10 +1,11 @@
 import model from '../../database/models';
+import { fileUpdate } from '../../helpers/updateFile';
 
 const { File } = model;
 
 export const updateFile = async (req, res, next) => {
   try {
-    return updateFile(req, res, File);
+    return fileUpdate(req, res, File);
   } catch (error) {
     return next(error);
   }

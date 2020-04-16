@@ -1,7 +1,7 @@
 import { errorResponse, successResponse } from './serverResponse';
 import { createFileExtension } from './utils';
 
-export const updateFile = async (req, res, Model) => {
+export const fileUpdate = async (req, res, Model) => {
   const {
     params: { slug },
     user: { id },
