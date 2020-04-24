@@ -6,7 +6,7 @@ const { PolicyPaper } = model;
 
 export const updatePolicyPaper = async (req, res, next) => {
   try {
-    return fileUpdate(req, res, PolicyPaper);
+    return fileUpdate(req, res, PolicyPaper, 'policy-paper');
   } catch (error) {
     return next(error);
   }

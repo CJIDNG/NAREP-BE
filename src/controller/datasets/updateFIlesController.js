@@ -5,7 +5,7 @@ const { File } = model;
 
 export const updateFile = async (req, res, next) => {
   try {
-    return fileUpdate(req, res, File);
+    return fileUpdate(req, res, File, 'file');
   } catch (error) {
     return next(error);
   }

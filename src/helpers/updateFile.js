@@ -1,13 +1,15 @@
 import { errorResponse, successResponse } from './serverResponse';
 import { createFileExtension } from './utils';
+import client from '../redis';
 
-export const fileUpdate = async (req, res, Model) => {
+export const fileUpdate = async (req, res, Model, ModelName) => {
   const {
     params: { slug },
     user: { id },
 
     file,
   } = req;
+
   const foundFile = await Model.findOne({
     where: {
       slug,
@@ -33,6 +35,7 @@ export const fileUpdate = async (req, res, Model) => {
         returning: true,
       },
     );
+    client.set(`${ModelName}-${slug}`, JSON.stringify({ updatedFile }));
     return successResponse(res, 200, 'file', { message: 'File has been updated successfully!', updatedFile });
   }
   const newUpdate = {
@@ -51,5 +54,6 @@ export const fileUpdate = async (req, res, Model) => {
       returning: true,
     },
   );
+  client.set(`${ModelName}-${slug}`, JSON.stringify({ updatedFile }));
   return successResponse(res, 200, 'file', { message: 'File has been updated successfully!', updatedFile });
 };

@@ -1,4 +1,5 @@
 import { errorResponse, successResponse } from './serverResponse';
+import client from '../redis';
 
 export const fileDelete = async (req, res, Model) => {
   const {
@@ -22,5 +23,6 @@ export const fileDelete = async (req, res, Model) => {
       },
     },
   );
+  await client.del('foundFile');
   return successResponse(res, 200, 'file', { message: 'File has been deleted successfully!' });
 };
